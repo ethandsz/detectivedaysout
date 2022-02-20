@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import './map.dart';
 import './variables.dart' as variables;
+import './methods.dart' as methods;
 
 void main() => runApp(const MyApp());
 
@@ -32,7 +33,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void _onItemTapped(int index) {
     setState(() {
       variables.navigationIndex = index;
-      if (index == 2) {
+      if (index == 2 && variables.mapAccess) {
         toMap();
       }
     });

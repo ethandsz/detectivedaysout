@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import './main.dart' as main;
 import './variables.dart' as variables;
+import './methods.dart' as methods;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -12,7 +13,6 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  // int _selectedIndex = variables.navigationIndex;
   void _onItemTapped(int index) {
     setState(() {
       variables.navigationIndex = index;
@@ -34,10 +34,16 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    BitmapDescriptor myIcon;
     return Scaffold(
       body: GoogleMap(
           myLocationButtonEnabled: false,
           zoomControlsEnabled: false,
+          markers: {
+            variables.firstClue,
+            variables.secondClue,
+            variables.thirdClue
+          },
           initialCameraPosition: _initalCameraPosition),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
