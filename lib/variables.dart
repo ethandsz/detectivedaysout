@@ -7,7 +7,7 @@ import './map.dart' as mp;
 
 int navigationIndex = 0;
 
-bool mapAccess = true;
+bool mapAccess = false;
 
 void initState() {
   BitmapDescriptor.fromAssetImage(

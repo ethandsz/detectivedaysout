@@ -34,17 +34,21 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    BitmapDescriptor myIcon;
+    if (variables.mapAccess) {
+      return Scaffold(
+        body: GoogleMap(
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: false,
+            markers: {
+              variables.firstClue,
+              variables.secondClue,
+              variables.thirdClue
+            },
+            initialCameraPosition: _initalCameraPosition),
+      );
+    }
     return Scaffold(
-      body: GoogleMap(
-          myLocationButtonEnabled: false,
-          zoomControlsEnabled: false,
-          markers: {
-            variables.firstClue,
-            variables.secondClue,
-            variables.thirdClue
-          },
-          initialCameraPosition: _initalCameraPosition),
-    );
+        body: Center(
+            child: Text('You do not have access to the map, please login')));
   }
 }
