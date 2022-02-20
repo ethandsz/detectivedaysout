@@ -30,12 +30,12 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  // int _selectedIndex = variables.navigationIndex;
   final screens = [
-    Center(child: Text("Home", style: TextStyle(fontSize: 60))),
-    login.LoginPage(),
-    //Center(child: Text("Login", style: TextStyle(fontSize: 60))),
-    MapScreen()
+    Center(
+        child:
+            Text("Home", style: TextStyle(fontSize: 60))), //Home class (TO DO)
+    login.LoginPage(), //Login class
+    MapScreen() //Map class
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -44,28 +44,35 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     print(variables.navigationIndex);
   }
 
+  // Widget for scaffold with nav. bar
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[variables.navigationIndex],
+      body: screens[variables
+          .navigationIndex], //The corressponding screens listed in order to the items contained in the navigation bar
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
+          //Items contained in the navigation bar
           BottomNavigationBarItem(
+            //Home
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
+            //Login
             icon: Icon(Icons.login_rounded),
             label: 'Login',
           ),
           BottomNavigationBarItem(
+            //Map
             icon: Icon(Icons.map_rounded),
             label: 'Map',
           ),
         ],
         currentIndex: variables.navigationIndex,
         selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
+        onTap:
+            _onItemTapped, //Keeping track of the current index (Could be removed in the future maybe)
       ),
     );
   }

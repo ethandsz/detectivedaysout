@@ -5,11 +5,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import './map.dart' as mp;
 
-int navigationIndex = 0;
+int navigationIndex = 0; //Navigation bar index
 
-String tenDigitKey = "";
+String tenDigitKey = ""; //Ten digit key user inputs
 
-bool mapAccess = false;
+bool mapAccess = false; //Map access
 
 void initState() {
   BitmapDescriptor.fromAssetImage(
@@ -19,6 +19,7 @@ void initState() {
   });
 }
 
+//Markers for clues, murders, etc...
 final Marker firstClue = Marker(
     markerId: MarkerId('FirstClue'),
     infoWindow: InfoWindow(title: 'First Clue'),

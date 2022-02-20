@@ -13,6 +13,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  //Could be removed in future version
   void _onItemTapped(int index) {
     setState(() {
       variables.navigationIndex = index;
@@ -22,24 +23,29 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
+  //Could be removed aswell
   void toHome() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => main.MyStatefulWidget()));
   }
 
+  //Initial camera position when maps first load
   static const _initalCameraPosition = CameraPosition(
     target: LatLng(52.2053, 0.1218),
     zoom: 11.5,
   );
 
+  //Google map widget
   @override
   Widget build(BuildContext context) {
+    //Checks if mapAcess is true
     if (variables.mapAccess) {
       return Scaffold(
         body: GoogleMap(
             myLocationButtonEnabled: false,
             zoomControlsEnabled: false,
             markers: {
+              //Markers located in the variables.dart file
               variables.firstClue,
               variables.secondClue,
               variables.thirdClue
@@ -47,6 +53,7 @@ class _MapScreenState extends State<MapScreen> {
             initialCameraPosition: _initalCameraPosition),
       );
     }
+    //Refuses access if 10 Digit key is not provided
     return Scaffold(
         body: Center(
             child: Text('You do not have access to the map, please login')));

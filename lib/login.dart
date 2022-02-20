@@ -10,7 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController textController = new TextEditingController();
+  TextEditingController textController =
+      new TextEditingController(); //Controller for the TextField Widget (MAKE PRIVATE_)
 
   @override
   void init() {
@@ -39,9 +40,11 @@ class _LoginPageState extends State<LoginPage> {
                 height: 100,
                 width: 380,
                 child: TextField(
+                  //Text field widget
                   controller: textController,
                   obscureText: true,
                   decoration: InputDecoration(
+                    //Decor for the box
                     fillColor: Colors.white,
                     filled: true,
                     icon: Icon(Icons.send),
@@ -50,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                     hintStyle: TextStyle(color: Colors.black),
                   ),
                   onEditingComplete: () {
+                    //Function for saving the user input to global variable and checking if the code matches to allow access to maps
                     variables.tenDigitKey = textController.text;
                     print(variables.tenDigitKey);
                     if (variables.tenDigitKey.length > 9) {
