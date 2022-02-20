@@ -45,25 +45,6 @@ class _MapScreenState extends State<MapScreen> {
             variables.thirdClue
           },
           initialCameraPosition: _initalCameraPosition),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.login_rounded),
-            label: 'Login',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map_rounded),
-            label: 'Map',
-          ),
-        ],
-        currentIndex: variables.navigationIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
     );
   }
 }

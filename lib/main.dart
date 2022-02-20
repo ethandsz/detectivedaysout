@@ -30,31 +30,22 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   // int _selectedIndex = variables.navigationIndex;
+  final screens = [
+    Center(child: Text("Home", style: TextStyle(fontSize: 60))),
+    Center(child: Text("Login", style: TextStyle(fontSize: 60))),
+    MapScreen()
+  ];
   void _onItemTapped(int index) {
     setState(() {
       variables.navigationIndex = index;
-      if (index == 2 && variables.mapAccess) {
-        toMap();
-      }
     });
     print(variables.navigationIndex);
-  }
-
-  void toMap() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MapScreen()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-          image: AssetImage("assets/homelogo.png"),
-          fit: BoxFit.cover,
-        )),
-      ),
+      body: screens[variables.navigationIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
