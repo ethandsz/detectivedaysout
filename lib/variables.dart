@@ -7,6 +7,8 @@ import './map.dart' as mp;
 
 int navigationIndex = 0;
 
+String tenDigitKey = "";
+
 bool mapAccess = false;
 
 void initState() {
