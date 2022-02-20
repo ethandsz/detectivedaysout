@@ -1,53 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import './map.dart';
+import './main.dart' as main;
 import './variables.dart' as variables;
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  static const String _title = 'Flutter Code Sample';
+class MapScreen extends StatefulWidget {
+  const MapScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: _title,
-      home: MyStatefulWidget(),
-    );
-  }
+  _MapScreenState createState() => _MapScreenState();
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
-
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MapScreenState extends State<MapScreen> {
   // int _selectedIndex = variables.navigationIndex;
   void _onItemTapped(int index) {
     setState(() {
       variables.navigationIndex = index;
-      if (index == 2) {
-        toMap();
+      if (index == 0) {
+        toHome();
       }
     });
-    print(variables.navigationIndex);
   }
 
-  void toMap() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MapScreen()));
+  void toHome() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => main.MyStatefulWidget()));
   }
+
+  static const _initalCameraPosition = CameraPosition(
+    target: LatLng(52.2053, 0.1218),
+    zoom: 11.5,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(),
+      body: GoogleMap(
+          myLocationButtonEnabled: false,
+          zoomControlsEnabled: false,
+          initialCameraPosition: _initalCameraPosition),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
