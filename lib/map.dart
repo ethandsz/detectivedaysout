@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import './main.dart' as main;
 import './variables.dart' as variables;
@@ -13,6 +17,24 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  Completer<GoogleMapController> _controllerGoogleMap = Completer();
+  late GoogleMapController newGoogleMapController;
+  late Position currentPosition;
+  var geoLocator = Geolocator();
+
+  void locatePosition() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.low);
+    currentPosition = position;
+
+    LatLng latLngPosition = LatLng(position.latitude, position.longitude);
+    CameraPosition cameraPosition =
+        new CameraPosition(target: latLngPosition, zoom: 14);
+    newGoogleMapController
+        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    print(currentPosition);
+  }
+
   //Could be removed in future version
   void _onItemTapped(int index) {
     setState(() {
@@ -42,8 +64,16 @@ class _MapScreenState extends State<MapScreen> {
     if (variables.mapAccess) {
       return Scaffold(
         body: GoogleMap(
-            myLocationButtonEnabled: false,
-            zoomControlsEnabled: false,
+            onMapCreated: (GoogleMapController controller) {
+              _controllerGoogleMap.complete(controller);
+              newGoogleMapController = controller;
+              locatePosition();
+            },
+            mapType: MapType.hybrid,
+            myLocationButtonEnabled: true,
+            zoomControlsEnabled: true,
+            myLocationEnabled: true,
+            zoomGesturesEnabled: true,
             markers: {
               //Markers located in the variables.dart file
               variables.firstClue,
