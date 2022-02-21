@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import './map.dart';
 import './variables.dart' as variables;
@@ -40,8 +41,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void _onItemTapped(int index) {
     setState(() {
       variables.navigationIndex = index;
+      print(index);
+      if (index == 2) {
+        //checkpermission_location();
+      }
     });
-    print(variables.navigationIndex);
+  }
+
+  checkpermission_location() async {
+    var locationStatus = await Permission.location.status;
+    print(locationStatus);
+
+    if (!locationStatus.isGranted) {
+      print("gr");
+      await Permission.location.request();
+    }
+
+    if (!locationStatus.isDenied) {
+      print('de');
+      await Permission.location.request();
+    }
   }
 
   // Widget for scaffold with nav. bar

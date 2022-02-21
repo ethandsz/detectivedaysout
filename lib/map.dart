@@ -23,6 +23,8 @@ class _MapScreenState extends State<MapScreen> {
   var geoLocator = Geolocator();
 
   void locatePosition() async {
+    print("EFEFF");
+
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.low);
     currentPosition = position;
@@ -51,6 +53,22 @@ class _MapScreenState extends State<MapScreen> {
         MaterialPageRoute(builder: (context) => main.MyStatefulWidget()));
   }
 
+  checkpermission_location() async {
+    var locationStatus = await Permission.location.status;
+    print(locationStatus);
+
+    if (!locationStatus.isGranted) {
+      print("gr");
+      await Permission.location.request();
+    }
+
+    if (!locationStatus.isDenied) {
+      print('de');
+      await Permission.location.request();
+      locatePosition();
+    }
+  }
+
   //Initial camera position when maps first load
   static const _initalCameraPosition = CameraPosition(
     target: LatLng(52.2053, 0.1218),
@@ -65,6 +83,7 @@ class _MapScreenState extends State<MapScreen> {
       return Scaffold(
         body: GoogleMap(
             onMapCreated: (GoogleMapController controller) {
+              checkpermission_location();
               _controllerGoogleMap.complete(controller);
               newGoogleMapController = controller;
               locatePosition();
