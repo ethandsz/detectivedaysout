@@ -35,7 +35,8 @@ class _MapScreenState extends State<MapScreen> {
     CameraPosition cameraPosition =
         new CameraPosition(target: latLngPosition, zoom: 14);
     newGoogleMapController
-        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+        .moveCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    CameraUpdate.newCameraPosition(cameraPosition);
   }
 
   checkpermission_location() async {
@@ -61,6 +62,7 @@ class _MapScreenState extends State<MapScreen> {
         mapVar.firstClue.position.longitude,
         currentPosition?.latitude,
         currentPosition?.longitude);
+    log("distance: $distance");
     if (distance < dcheck) {
       mapVar.showAlertDialog(context);
     }
@@ -98,9 +100,6 @@ class _MapScreenState extends State<MapScreen> {
             mapVar.thirdClue
           },
           initialCameraPosition: _initalCameraPosition,
-          onCameraIdle: () {
-            checkFirstClue();
-          },
         ),
       );
     }
