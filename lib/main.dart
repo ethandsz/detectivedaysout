@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-
+import './home.dart';
 import './map.dart';
 import './variables.dart' as variables;
 import './methods.dart' as methods;
@@ -32,9 +32,7 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final screens = [
-    Center(
-        child:
-            Text("Home", style: TextStyle(fontSize: 60))), //Home class (TO DO)
+    Center(child: Home()), //Home class
     login.LoginPage(), //Login class
     MapScreen() //Map class
   ];
