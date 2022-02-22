@@ -26,7 +26,7 @@ class _MapScreenState extends State<MapScreen> {
     print("EFEFF");
 
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
+        desiredAccuracy: LocationAccuracy.high);
     currentPosition = position;
 
     LatLng latLngPosition = LatLng(position.latitude, position.longitude);
@@ -83,12 +83,13 @@ class _MapScreenState extends State<MapScreen> {
       return Scaffold(
         body: GoogleMap(
             onMapCreated: (GoogleMapController controller) {
+              controller.setMapStyle(variables.mapStyle);
               checkpermission_location();
               _controllerGoogleMap.complete(controller);
               newGoogleMapController = controller;
               locatePosition();
             },
-            mapType: MapType.hybrid,
+            mapType: MapType.normal,
             myLocationButtonEnabled: true,
             zoomControlsEnabled: true,
             myLocationEnabled: true,
