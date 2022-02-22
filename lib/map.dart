@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,6 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 import './main.dart' as main;
 import './variables.dart' as variables;
 import './methods.dart' as methods;
+import './mapvariables.dart' as mapVar;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -19,7 +21,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
   late GoogleMapController newGoogleMapController;
-  late Position currentPosition;
+  Position? currentPosition;
   var geoLocator = Geolocator();
 
   void locatePosition() async {
@@ -34,11 +36,12 @@ class _MapScreenState extends State<MapScreen> {
         new CameraPosition(target: latLngPosition, zoom: 14);
     newGoogleMapController
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    print("LOCATION");
     print(currentPosition);
   }
 
   //Could be removed in future version
-  void _onItemTapped(int index) {
+  /* void _onItemTapped(int index) {
     setState(() {
       variables.navigationIndex = index;
       if (index == 0) {
@@ -51,7 +54,7 @@ class _MapScreenState extends State<MapScreen> {
   void toHome() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => main.MyStatefulWidget()));
-  }
+  }*/
 
   checkpermission_location() async {
     var locationStatus = await Permission.location.status;
@@ -80,10 +83,13 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     //Checks if mapAcess is true
     if (variables.mapAccess) {
+      if (currentPosition == LatLng(52.2147513, 0.1248151)) {
+        print("HIITWORKS");
+      }
       return Scaffold(
         body: GoogleMap(
             onMapCreated: (GoogleMapController controller) {
-              controller.setMapStyle(variables.mapStyle);
+              controller.setMapStyle(mapVar.mapStyle);
               checkpermission_location();
               _controllerGoogleMap.complete(controller);
               newGoogleMapController = controller;
@@ -96,9 +102,9 @@ class _MapScreenState extends State<MapScreen> {
             zoomGesturesEnabled: true,
             markers: {
               //Markers located in the variables.dart file
-              variables.firstClue,
-              variables.secondClue,
-              variables.thirdClue
+              mapVar.firstClue,
+              mapVar.secondClue,
+              mapVar.thirdClue
             },
             initialCameraPosition: _initalCameraPosition),
       );
