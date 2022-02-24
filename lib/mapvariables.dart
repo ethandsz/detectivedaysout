@@ -1,34 +1,24 @@
 library my_prj.globals;
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import './map.dart' as mp;
+import './variables.dart' as variables;
 
-//Markers for clues, murders, etc...
-final Marker firstClue = Marker(
-    markerId: MarkerId('FirstClue'),
-    infoWindow: InfoWindow(title: 'First Clue'),
-    icon: BitmapDescriptor.defaultMarker,
-    position: LatLng(52.204375, 0.133228));
+//Marker Locations
 
-final Marker secondClue = Marker(
-    markerId: MarkerId('SecondClue'),
-    infoWindow: InfoWindow(title: 'Second Clue'),
-    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
-    position: LatLng(52.203730, 0.117649));
-
-final Marker thirdClue = Marker(
-    markerId: MarkerId('ThirdClue'),
-    infoWindow: InfoWindow(title: 'Third Clue'),
-    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-    position: LatLng(52.211510, 0.124507));
+double firstClueLat = 52.204375;
+double firstClueLong = 0.133228;
 
 showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
     child: Text("OK"),
-    onPressed: () {},
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
   );
 
   // set up the AlertDialog
@@ -38,6 +28,7 @@ showAlertDialog(BuildContext context) {
     actions: [
       okButton,
     ],
+    scrollable: true,
   );
 
   // show the dialog

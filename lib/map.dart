@@ -49,11 +49,16 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void checkFirstClue(var x, var y) {
-    double distance = methods.distance(mapVar.firstClue.position.latitude,
-        mapVar.firstClue.position.longitude, x, y);
+    double distance =
+        methods.distance(mapVar.firstClueLat, mapVar.firstClueLong, x, y);
     log("distance: $distance");
-    if (distance < dcheck) {
-      mapVar.showAlertDialog(context);
+    if ((distance < dcheck)) {
+      variables.dialogVis = true;
+      if ((variables.dialogVis) && (variables.firstClue_cmpltd == false)) {
+        mapVar.showAlertDialog(context);
+        variables.dialogVis = false;
+        variables.firstClue_cmpltd = true;
+      }
     }
   }
 
@@ -84,9 +89,29 @@ class _MapScreenState extends State<MapScreen> {
           zoomGesturesEnabled: true,
           markers: {
             //Markers located in the variables.dart file
-            mapVar.firstClue,
-            mapVar.secondClue,
-            mapVar.thirdClue
+            Marker(
+                markerId: MarkerId('FirstClue'),
+                infoWindow: InfoWindow(title: 'First Clue'),
+                icon: BitmapDescriptor.defaultMarker,
+                position: LatLng(52.204375, 0.133228),
+                onTap: () {
+                  if (variables.firstClue_cmpltd) {
+                    mapVar.showAlertDialog(context);
+                  }
+                }),
+            Marker(
+                markerId: MarkerId('SecondClue'),
+                infoWindow: InfoWindow(title: 'Second Clue'),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueYellow),
+                position: LatLng(52.203730, 0.117649)),
+
+            Marker(
+                markerId: MarkerId('ThirdClue'),
+                infoWindow: InfoWindow(title: 'Third Clue'),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueBlue),
+                position: LatLng(52.211510, 0.124507)),
           },
           initialCameraPosition: _initalCameraPosition,
         ),

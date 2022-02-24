@@ -10,6 +10,8 @@ int navigationIndex = 0; //Navigation bar index
 String tenDigitKey = ""; //Ten digit key user inputs
 
 bool mapAccess = true; //Map access
+bool dialogVis = false;
+bool firstClue_cmpltd = false;
 
 void initState() {
   BitmapDescriptor.fromAssetImage(
