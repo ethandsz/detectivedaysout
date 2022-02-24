@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:location/location.dart';
 import 'dart:math' as math;
 
 import './main.dart' as main;
@@ -25,19 +26,7 @@ class _MapScreenState extends State<MapScreen> {
   Position? currentPosition;
   var geoLocator = Geolocator();
   final double dcheck = 0.00014128694207108202;
-
-  void locatePosition() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    currentPosition = position;
-
-    LatLng latLngPosition = LatLng(position.latitude, position.longitude);
-    CameraPosition cameraPosition =
-        new CameraPosition(target: latLngPosition, zoom: 14);
-    newGoogleMapController
-        .moveCamera(CameraUpdate.newCameraPosition(cameraPosition));
-    CameraUpdate.newCameraPosition(cameraPosition);
-  }
+  var location = new Location();
 
   checkpermission_location() async {
     var locationStatus = await Permission.location.status;
@@ -51,17 +40,17 @@ class _MapScreenState extends State<MapScreen> {
     if (!locationStatus.isDenied) {
       print('de');
       await Permission.location.request();
-      locatePosition();
+      location.onLocationChanged.listen((LocationData currentLocation) {
+        var lat = currentLocation.latitude;
+        var long = currentLocation.longitude;
+        checkFirstClue(lat, long);
+      });
     }
   }
 
-  void checkFirstClue() {
-    locatePosition();
-    double distance = methods.distance(
-        mapVar.firstClue.position.latitude,
-        mapVar.firstClue.position.longitude,
-        currentPosition?.latitude,
-        currentPosition?.longitude);
+  void checkFirstClue(var x, var y) {
+    double distance = methods.distance(mapVar.firstClue.position.latitude,
+        mapVar.firstClue.position.longitude, x, y);
     log("distance: $distance");
     if (distance < dcheck) {
       mapVar.showAlertDialog(context);
@@ -79,6 +68,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     //Checks if mapAcess is true
     if (variables.mapAccess) {
+      var currentlocation = location.getLocation();
       return Scaffold(
         body: GoogleMap(
           onMapCreated: (GoogleMapController controller) {
@@ -86,7 +76,6 @@ class _MapScreenState extends State<MapScreen> {
             checkpermission_location();
             _controllerGoogleMap.complete(controller);
             newGoogleMapController = controller;
-            locatePosition();
           },
           mapType: MapType.normal,
           myLocationButtonEnabled: true,
