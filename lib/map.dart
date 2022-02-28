@@ -12,6 +12,7 @@ import './main.dart' as main;
 import './variables.dart' as variables;
 import './methods.dart' as methods;
 import './mapvariables.dart' as mapVar;
+import './marker_information.dart' as markerInfo;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -40,26 +41,31 @@ class _MapScreenState extends State<MapScreen> {
     if (!locationStatus.isDenied) {
       print('de');
       await Permission.location.request();
-      location.onLocationChanged.listen((LocationData currentLocation) {
-        var lat = currentLocation.latitude;
-        var long = currentLocation.longitude;
-        checkFirstClue(lat, long);
-      });
+      checkLocation();
     }
   }
 
   void checkFirstClue(var x, var y) {
-    double distance =
-        methods.distance(mapVar.firstClueLat, mapVar.firstClueLong, x, y);
+    double distance = methods.distance(
+        markerInfo.newHamCollege.lat, markerInfo.newHamCollege.long, x, y);
     log("distance: $distance");
     if ((distance < dcheck)) {
       variables.dialogVis = true;
       if ((variables.dialogVis) && (variables.firstClue_cmpltd == false)) {
-        mapVar.showAlertDialog(context);
+        mapVar.showAlertDialog(context, markerInfo.newHamCollege.title,
+            markerInfo.newHamCollege.body);
         variables.dialogVis = false;
         variables.firstClue_cmpltd = true;
       }
     }
+  }
+
+  void checkLocation() {
+    location.onLocationChanged.listen((LocationData currentLocation) {
+      var lat = currentLocation.latitude;
+      var long = currentLocation.longitude;
+      checkFirstClue(lat, long);
+    });
   }
 
   //Initial camera position when maps first load
@@ -90,28 +96,35 @@ class _MapScreenState extends State<MapScreen> {
           markers: {
             //Markers located in the variables.dart file
             Marker(
-                markerId: MarkerId('FirstClue'),
-                infoWindow: InfoWindow(title: 'First Clue'),
+                markerId: MarkerId('New Ham College'),
+                infoWindow: InfoWindow(title: markerInfo.newHamCollege.title),
                 icon: BitmapDescriptor.defaultMarker,
-                position: LatLng(52.204375, 0.133228),
+                position: LatLng(markerInfo.newHamCollege.lat,
+                    markerInfo.newHamCollege.long),
                 onTap: () {
                   if (variables.firstClue_cmpltd) {
-                    mapVar.showAlertDialog(context);
+                    mapVar.showAlertDialog(
+                        context,
+                        markerInfo.newHamCollege.title,
+                        markerInfo.newHamCollege.body);
                   }
                 }),
             Marker(
-                markerId: MarkerId('SecondClue'),
-                infoWindow: InfoWindow(title: 'Second Clue'),
+                markerId: MarkerId('Coe Fen'),
+                infoWindow: InfoWindow(title: markerInfo.coeFen.title),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueYellow),
-                position: LatLng(52.203730, 0.117649)),
+                position:
+                    LatLng(markerInfo.coeFen.lat, markerInfo.coeFen.long)),
 
             Marker(
-                markerId: MarkerId('ThirdClue'),
-                infoWindow: InfoWindow(title: 'Third Clue'),
+                markerId: MarkerId('Mathematical Bridge'),
+                infoWindow:
+                    InfoWindow(title: markerInfo.mathematicalBridge.title),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueBlue),
-                position: LatLng(52.211510, 0.124507)),
+                position: LatLng(markerInfo.mathematicalBridge.lat,
+                    markerInfo.mathematicalBridge.long)),
           },
           initialCameraPosition: _initalCameraPosition,
         ),
