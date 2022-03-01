@@ -48,15 +48,14 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void checkClue(var x, var y, markerInfo.ClueLocation marker) {
-    double distance = methods.distance(
-        marker.lat, marker.long, x, y);
+    double distance = methods.distance(marker.lat, marker.long, x, y);
     log("distance: $distance");
     if ((distance < dcheck)) {
       variables.dialogVis = true;
-      if ((variables.dialogVis) && (markerInfo.newHamCollege.compl == false)) {
-        mapVar.showAlertDialog(context, markerInfo.newHamCollege);
+      if ((variables.dialogVis) && (marker.compl == false)) {
+        mapVar.showAlertDialog(context, marker);
         variables.dialogVis = false;
-        markerInfo.newHamCollege.compl = true;
+        marker.compl = true;
       }
     }
   }
@@ -66,6 +65,15 @@ class _MapScreenState extends State<MapScreen> {
       var lat = currentLocation.latitude;
       var long = currentLocation.longitude;
       checkClue(lat, long, markerInfo.newHamCollege);
+      checkClue(lat, long, markerInfo.coeFen);
+      checkClue(lat, long, markerInfo.mathematicalBridge);
+      checkClue(lat, long, markerInfo.graveYard);
+      checkClue(lat, long, markerInfo.archeologicalMuseum);
+//6.??? Waiting for update from Konstantin
+      checkClue(lat, long, markerInfo.addenbrokesHospital);
+      checkClue(lat, long, markerInfo.stMarysBellTower);
+      checkClue(lat, long, markerInfo.trinityStreet);
+      checkClue(lat, long, markerInfo.viewOfTheBridgeOfSighs);
     });
   }
 
@@ -74,6 +82,19 @@ class _MapScreenState extends State<MapScreen> {
     target: LatLng(52.2053, 0.1218),
     zoom: 11.5,
   );
+
+  Marker makeMarker(markerInfo.ClueLocation marker) {
+    return (Marker(
+        markerId: MarkerId(marker.title),
+        infoWindow: InfoWindow(title: marker.title),
+        icon: BitmapDescriptor.defaultMarker,
+        position: LatLng(marker.lat, marker.long),
+        onTap: () {
+          if (marker.compl) {
+            mapVar.showAlertDialog(context, marker);
+          }
+        }));
+  }
 
   //Google map widget
   @override
@@ -96,35 +117,16 @@ class _MapScreenState extends State<MapScreen> {
           zoomGesturesEnabled: true,
           markers: {
             //Markers located in the variables.dart file
-            Marker(
-                markerId: MarkerId('New Ham College'),
-                infoWindow: InfoWindow(title: markerInfo.newHamCollege.title),
-                icon: BitmapDescriptor.defaultMarker,
-                position: LatLng(markerInfo.newHamCollege.lat,
-                    markerInfo.newHamCollege.long),
-                onTap: () {
-                  if (markerInfo.newHamCollege.compl) {
-                    mapVar.showAlertDialog(
-                        context,
-                        markerInfo.newHamCollege);
-                  }
-                }),
-            Marker(
-                markerId: MarkerId('Coe Fen'),
-                infoWindow: InfoWindow(title: markerInfo.coeFen.title),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueYellow),
-                position:
-                    LatLng(markerInfo.coeFen.lat, markerInfo.coeFen.long)),
-
-            Marker(
-                markerId: MarkerId('Mathematical Bridge'),
-                infoWindow:
-                    InfoWindow(title: markerInfo.mathematicalBridge.title),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueBlue),
-                position: LatLng(markerInfo.mathematicalBridge.lat,
-                    markerInfo.mathematicalBridge.long)),
+            makeMarker(markerInfo.newHamCollege),
+            makeMarker(markerInfo.coeFen),
+            makeMarker(markerInfo.mathematicalBridge),
+            makeMarker(markerInfo.graveYard),
+            makeMarker(markerInfo.archeologicalMuseum),
+            //6.??? Waiting for update from Konstantin
+            makeMarker(markerInfo.addenbrokesHospital),
+            makeMarker(markerInfo.stMarysBellTower),
+            makeMarker(markerInfo.trinityStreet),
+            makeMarker(markerInfo.viewOfTheBridgeOfSighs),
           },
           initialCameraPosition: _initalCameraPosition,
         ),

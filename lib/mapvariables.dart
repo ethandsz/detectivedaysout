@@ -8,7 +8,6 @@ import './map.dart' as mp;
 import './variables.dart' as variables;
 import './marker_information.dart' as markerInfo;
 
-
 //Marker Locations
 
 showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
@@ -28,6 +27,10 @@ showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
       okButton,
     ],
     scrollable: true,
+    backgroundColor: Colors.red[300],
+    contentTextStyle: TextStyle(fontSize: 18, color: Colors.black),
+    titleTextStyle: TextStyle(
+        fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
   );
 
   // show the dialog
