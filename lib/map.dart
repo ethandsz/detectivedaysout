@@ -45,17 +45,16 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
-  void checkFirstClue(var x, var y) {
+  void checkClue(var x, var y, markerInfo.ClueLocation marker) {
     double distance = methods.distance(
-        markerInfo.newHamCollege.lat, markerInfo.newHamCollege.long, x, y);
+        marker.lat, marker.long, x, y);
     log("distance: $distance");
     if ((distance < dcheck)) {
       variables.dialogVis = true;
-      if ((variables.dialogVis) && (variables.firstClue_cmpltd == false)) {
-        mapVar.showAlertDialog(context, markerInfo.newHamCollege.title,
-            markerInfo.newHamCollege.body);
+      if ((variables.dialogVis) && (markerInfo.newHamCollege.compl == false)) {
+        mapVar.showAlertDialog(context, markerInfo.newHamCollege);
         variables.dialogVis = false;
-        variables.firstClue_cmpltd = true;
+        markerInfo.newHamCollege.compl = true;
       }
     }
   }
@@ -64,7 +63,7 @@ class _MapScreenState extends State<MapScreen> {
     location.onLocationChanged.listen((LocationData currentLocation) {
       var lat = currentLocation.latitude;
       var long = currentLocation.longitude;
-      checkFirstClue(lat, long);
+      checkClue(lat, long, markerInfo.newHamCollege);
     });
   }
 
@@ -102,11 +101,10 @@ class _MapScreenState extends State<MapScreen> {
                 position: LatLng(markerInfo.newHamCollege.lat,
                     markerInfo.newHamCollege.long),
                 onTap: () {
-                  if (variables.firstClue_cmpltd) {
+                  if (markerInfo.newHamCollege.compl) {
                     mapVar.showAlertDialog(
                         context,
-                        markerInfo.newHamCollege.title,
-                        markerInfo.newHamCollege.body);
+                        markerInfo.newHamCollege);
                   }
                 }),
             Marker(

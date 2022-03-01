@@ -6,10 +6,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import './map.dart' as mp;
 import './variables.dart' as variables;
+import './marker_information.dart' as markerInfo;
+
 
 //Marker Locations
 
-showAlertDialog(BuildContext context, var title, var body) {
+showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
   // set up the button
   Widget okButton = TextButton(
     child: Text("OK"),
@@ -20,8 +22,8 @@ showAlertDialog(BuildContext context, var title, var body) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text(title),
-    content: Text(body),
+    title: Text(marker.title),
+    content: Text(marker.body),
     actions: [
       okButton,
     ],
