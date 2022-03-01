@@ -35,7 +35,9 @@ class _MapScreenState extends State<MapScreen> {
 
     if (!locationStatus.isGranted) {
       print("gr");
+      print(await Permission.location.value);
       await Permission.location.request();
+      checkpermission_location();
     }
 
     if (!locationStatus.isDenied) {
