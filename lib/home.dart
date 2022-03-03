@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './variables.dart' as variables;
 import './login.dart' as login;
 
 class Home extends StatefulWidget {
@@ -14,14 +13,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/homelogo.png'),
+            fit: BoxFit.cover,
           ),
         ),
         child: GestureDetector(onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => login.LoginPage()));
+              MaterialPageRoute(builder: (context) => const login.LoginPage()));
         }),
       ),
     );

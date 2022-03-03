@@ -6,6 +6,7 @@ import './map.dart' as map;
 import './variables.dart' as variables;
 import './methods.dart' as methods;
 import './login.dart' as login;
+import './instruction_page.dart';
 
 void main() => runApp(const MyApp());
 
