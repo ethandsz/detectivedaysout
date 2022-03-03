@@ -38,6 +38,7 @@ class _InstructionsState extends State<Instructions>
           "Cambridge is full of mysteries and dark secrets. Today you will reveal some of them using this app as a guide. And no later than by the end of this day you'll find out how these stories are all connected",
           textStyle: TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
           speed: Duration(milliseconds: 70),
+          curve: Curves.fastOutSlowIn,
         ),
         TypewriterAnimatedText(
           "Collect the facts and stories, visit all the marked locations around the town and complete the tasks. All these bits of information will help your deductive minds to come to the right conclusion when you'll be witnessing some events tonight.",
@@ -61,6 +62,11 @@ class _InstructionsState extends State<Instructions>
         ),
         TypewriterAnimatedText(
           "Enjoy!",
+          textStyle: TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
+          speed: Duration(milliseconds: 1),
+        ),
+        TypewriterAnimatedText(
+          "Double tap your screen!",
           textStyle: TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
           speed: Duration(milliseconds: 1),
         ),
