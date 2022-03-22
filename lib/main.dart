@@ -8,6 +8,8 @@ import './methods.dart' as methods;
 import './login.dart' as login;
 import './instruction_page.dart';
 
+BitmapDescriptor? customicon;
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -32,8 +34,15 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  //BitmapDescriptor? customicon;
+
   @override
   Widget build(BuildContext context) {
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(size: Size(48, 48)), 'assets/homelogo.png')
+        .then((onValue) {
+      customicon = onValue;
+    });
     return Scaffold(
       body: home.Home(),
     );

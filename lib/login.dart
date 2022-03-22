@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import './variables.dart' as variables;
 import './instruction_page.dart' as instructions;
+import './map.dart' as map;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -39,35 +40,57 @@ class _LoginPageState extends State<LoginPage> {
             ),
             height: double.infinity,
             width: double.infinity,
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(
-                  height: 100,
-                  width: 380,
-                  child: TextField(
-                    //Text field widget
-                    controller: textController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      //Decor for the box
-                      fillColor: Colors.white,
-                      filled: true,
-                      icon: Icon(Icons.send),
-                      border: OutlineInputBorder(),
-                      hintText: "Enter 10Digit Key",
-                      hintStyle: TextStyle(color: Colors.black),
-                    ),
-                    onEditingComplete: () {
-                      //Function for saving the user input to global variable and checking if the code matches to allow access to maps
-                      variables.tenDigitKey = textController.text;
-                      print(variables.tenDigitKey);
-                      if (variables.tenDigitKey.length > 9) {
-                        variables.mapAccess = true;
-                      }
-                    },
-                  ))
-            ])),
-        floatingActionButton: button(),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                      height: 60,
+                      width: 380,
+                      child: TextField(
+                        //Text field widget
+                        controller: textController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          //Decor for the box
+                          fillColor: Colors.white,
+                          filled: true,
+                          //icon: Icon(Icons.send),
+                          border: OutlineInputBorder(),
+                          hintText: "Enter 10 Digit Key",
+                          hintStyle: TextStyle(color: Colors.black),
+                        ),
+                        onEditingComplete: () {
+                          //Function for saving the user input to global variable and checking if the code matches to allow access to maps
+                          variables.tenDigitKey = textController.text;
+                          print(variables.tenDigitKey);
+                          if (variables.tenDigitKey.length > 9) {
+                            variables.mapAccess = true;
+                          }
+                        },
+                      )),
+                  const SizedBox(
+                    height: 2,
+                    width: 70,
+                  ),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF6D00F4),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 80, vertical: 10),
+                          textStyle: TextStyle(
+                              fontSize: 36,
+                              fontFamily: 'Akrobat',
+                              fontWeight: FontWeight.bold)),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => map.MapScreen()));
+                      },
+                      child: const Text('Enter')),
+                ])),
+        //floatingActionButton: button(),
+        //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
@@ -75,12 +98,16 @@ class _LoginPageState extends State<LoginPage> {
   Widget button() => FloatingActionButton.extended(
       backgroundColor: Color.fromARGB(255, 90, 47, 248),
       foregroundColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       label: Text('Enter'),
       onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const map.MapScreen()));
+/*
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => const instructions.Instructions()));
+                */
       });
 }

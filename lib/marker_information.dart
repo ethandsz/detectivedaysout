@@ -8,7 +8,7 @@ class ClueLocation {
   double long;
   var title;
   var body;
-  bool compl = false;
+  bool compl = true;
 }
 
 var newHamCollege = ClueLocation(

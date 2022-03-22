@@ -12,12 +12,17 @@ import './marker_information.dart' as markerInfo;
 
 showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
   // set up the button
-  Widget okButton = TextButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.of(context).pop();
-    },
-  );
+  Widget okButton = ButtonTheme(
+      child: Align(
+          alignment: Alignment.center,
+          child: ElevatedButton(
+            child: Text("Continue"),
+            style: TextButton.styleFrom(
+                primary: Colors.red[600], backgroundColor: Colors.black),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )));
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
@@ -27,10 +32,18 @@ showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
       okButton,
     ],
     scrollable: true,
-    backgroundColor: Colors.red[300],
-    contentTextStyle: TextStyle(fontSize: 18, color: Colors.black),
+    backgroundColor: Colors.grey[800],
+    contentTextStyle: TextStyle(
+        fontFamily: 'Capture',
+        fontSize: 18,
+        color: Colors.black,
+        fontWeight: FontWeight.bold),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
     titleTextStyle: TextStyle(
-        fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
+        fontSize: 18,
+        color: Colors.red[900],
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Capture'),
   );
 
   // show the dialog
@@ -48,7 +61,7 @@ final String mapStyle = '''
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#03183f"
+        "color": "#57A1C1"
       }
     ]
   },

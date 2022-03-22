@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -28,6 +29,13 @@ class _MapScreenState extends State<MapScreen> {
   var geoLocator = Geolocator();
   final double dcheck = 0.00014128694207108202;
   var location = new Location();
+
+  getImage() async {
+    BitmapDescriptor icon = await BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(size: Size(48, 48)), 'assets/homelogo.png')
+        as BitmapDescriptor;
+    return icon;
+  }
 
   checkpermission_location() async {
     var locationStatus = await Permission.location.status;

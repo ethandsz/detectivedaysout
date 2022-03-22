@@ -95,3 +95,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: Capture
+      fonts:
+        - asset: assets/CaptureIt.ttf
+    - family: Akrobat
+      fonts:
+        - asset: assets/Akrobat-Thin.ttf
