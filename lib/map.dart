@@ -29,12 +29,22 @@ class _MapScreenState extends State<MapScreen> {
   var geoLocator = Geolocator();
   final double dcheck = 0.00014128694207108202;
   var location = new Location();
+  late BitmapDescriptor marker_notCmplt;
+  late BitmapDescriptor marker_cmplt;
+  Set<Marker>? _markers = <Marker>{};
+  var ClueLocations = <markerInfo.ClueLocation>{};
 
-  getImage() async {
-    BitmapDescriptor icon = await BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(48, 48)), 'assets/homelogo.png')
-        as BitmapDescriptor;
-    return icon;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void setMarkerIcon() async {
+    marker_notCmplt = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(50, 50)), 'assets/notCmplt.png');
+
+    marker_cmplt = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(50, 50)), 'assets/Cmplt.png');
   }
 
   checkpermission_location() async {
@@ -57,14 +67,45 @@ class _MapScreenState extends State<MapScreen> {
 
   void checkClue(var x, var y, markerInfo.ClueLocation marker) {
     double distance = methods.distance(marker.lat, marker.long, x, y);
-    log("distance: $distance");
+    //log("distance: $distance");
     if ((distance < dcheck)) {
       variables.dialogVis = true;
       if ((variables.dialogVis) && (marker.compl == false)) {
         mapVar.showAlertDialog(context, marker);
         variables.dialogVis = false;
         marker.compl = true;
+        generateMarkers();
       }
+    }
+  }
+
+  void generateMarkers() {
+    var localMarkers = <Marker>{};
+    localMarkers.add(makeMarker(markerInfo.newHamCollege, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.coeFen, marker_notCmplt));
+    localMarkers
+        .add(makeMarker(markerInfo.mathematicalBridge, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.graveYard, marker_notCmplt));
+    localMarkers
+        .add(makeMarker(markerInfo.archeologicalMuseum, marker_notCmplt));
+    localMarkers
+        .add(makeMarker(markerInfo.addenbrokesHospital, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.stMarysBellTower, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.trinityStreet, marker_notCmplt));
+    localMarkers
+        .add(makeMarker(markerInfo.viewOfTheBridgeOfSighs, marker_notCmplt));
+
+    if (mounted) {
+      for (markerInfo.ClueLocation marker in ClueLocations) {
+        if (marker.compl) {
+          localMarkers
+              .removeWhere((element) => element.markerId == marker.title);
+          localMarkers.add(makeMarker(marker, marker_cmplt));
+        }
+      }
+      setState(() {
+        _markers = localMarkers;
+      });
     }
   }
 
@@ -77,7 +118,6 @@ class _MapScreenState extends State<MapScreen> {
       checkClue(lat, long, markerInfo.mathematicalBridge);
       checkClue(lat, long, markerInfo.graveYard);
       checkClue(lat, long, markerInfo.archeologicalMuseum);
-//6.??? Waiting for update from Konstantin
       checkClue(lat, long, markerInfo.addenbrokesHospital);
       checkClue(lat, long, markerInfo.stMarysBellTower);
       checkClue(lat, long, markerInfo.trinityStreet);
@@ -91,11 +131,16 @@ class _MapScreenState extends State<MapScreen> {
     zoom: 11.5,
   );
 
-  Marker makeMarker(markerInfo.ClueLocation marker) {
+  Marker makeMarker(markerInfo.ClueLocation marker, icon) {
+    ClueLocations.add(marker);
+    for (markerInfo.ClueLocation marker in ClueLocations) {
+      var title = marker.title;
+      log("List: $title");
+    }
     return (Marker(
         markerId: MarkerId(marker.title),
         infoWindow: InfoWindow(title: marker.title),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: icon,
         position: LatLng(marker.lat, marker.long),
         onTap: () {
           if (marker.compl) {
@@ -107,12 +152,14 @@ class _MapScreenState extends State<MapScreen> {
   //Google map widget
   @override
   Widget build(BuildContext context) {
+    setMarkerIcon();
     //Checks if mapAcess is true
     if (variables.mapAccess) {
       var currentlocation = location.getLocation();
       return Scaffold(
         body: GoogleMap(
           onMapCreated: (GoogleMapController controller) {
+            generateMarkers();
             controller.setMapStyle(mapVar.mapStyle);
             checkpermission_location();
             _controllerGoogleMap.complete(controller);
@@ -123,7 +170,8 @@ class _MapScreenState extends State<MapScreen> {
           zoomControlsEnabled: true,
           myLocationEnabled: true,
           zoomGesturesEnabled: true,
-          markers: {
+          markers: _markers!, //{
+          /*
             //Markers located in the variables.dart file
             makeMarker(markerInfo.newHamCollege),
             makeMarker(markerInfo.coeFen),
@@ -135,7 +183,8 @@ class _MapScreenState extends State<MapScreen> {
             makeMarker(markerInfo.stMarysBellTower),
             makeMarker(markerInfo.trinityStreet),
             makeMarker(markerInfo.viewOfTheBridgeOfSighs),
-          },
+            */
+          //},
           initialCameraPosition: _initalCameraPosition,
         ),
       );

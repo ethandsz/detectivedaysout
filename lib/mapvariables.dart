@@ -15,10 +15,16 @@ showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
   Widget okButton = ButtonTheme(
       child: Align(
           alignment: Alignment.center,
-          child: ElevatedButton(
+          child: TextButton(
             child: Text("Continue"),
             style: TextButton.styleFrom(
-                primary: Colors.red[600], backgroundColor: Colors.black),
+                primary: Colors.black,
+                backgroundColor: Colors.white,
+                textStyle: const TextStyle(
+                    fontFamily: 'Akrobat',
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold)),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -32,18 +38,18 @@ showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
       okButton,
     ],
     scrollable: true,
-    backgroundColor: Colors.grey[800],
+    backgroundColor: Colors.white,
     contentTextStyle: TextStyle(
-        fontFamily: 'Capture',
+        fontFamily: 'Akrobat',
         fontSize: 18,
         color: Colors.black,
         fontWeight: FontWeight.bold),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
     titleTextStyle: TextStyle(
         fontSize: 18,
-        color: Colors.red[900],
-        fontWeight: FontWeight.bold,
-        fontFamily: 'Capture'),
+        color: Colors.black,
+        fontWeight: FontWeight.w900,
+        fontFamily: 'Akrobat'),
   );
 
   // show the dialog
@@ -243,7 +249,7 @@ final String mapStyle = '''
     "elementType": "labels.text",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },

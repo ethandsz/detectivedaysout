@@ -34,8 +34,6 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  //BitmapDescriptor? customicon;
-
   @override
   Widget build(BuildContext context) {
     BitmapDescriptor.fromAssetImage(

@@ -42,6 +42,9 @@ dependencies:
   permission_handler: ^9.1.0
   location: ^4.2.0
   animated_text_kit: ^4.2.1
+  video_player: ^2.3.0
+  chewie: ^1.3.1
+
 
 dev_dependencies:
   flutter_test:
@@ -102,4 +105,12 @@ flutter:
         - asset: assets/CaptureIt.ttf
     - family: Akrobat
       fonts:
+        - asset: assets/Akrobat-Black.ttf
+        - asset: assets/Akrobat-Bold.ttf
+        - asset: assets/Akrobat-ExtraBold.ttf
+          weight: 900
+        - asset: assets/Akrobat-ExtraLight.ttf
+        - asset: assets/Akrobat-Light.ttf
+        - asset: assets/Akrobat-Regular.ttf
+        - asset: assets/Akrobat-SemiBold.ttf
         - asset: assets/Akrobat-Thin.ttf
