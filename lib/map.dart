@@ -25,8 +25,8 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
   late GoogleMapController newGoogleMapController;
-  Position? currentPosition;
-  var geoLocator = Geolocator();
+  //Position? currentPosition;
+  // var geoLocator = Geolocator();
   final double dcheck = 0.00014128694207108202;
   var location = new Location();
   late BitmapDescriptor marker_notCmplt;
@@ -170,7 +170,8 @@ class _MapScreenState extends State<MapScreen> {
           zoomControlsEnabled: true,
           myLocationEnabled: true,
           zoomGesturesEnabled: true,
-          markers: _markers!, //{
+          markers: _markers!,
+          //{
           /*
             //Markers located in the variables.dart file
             makeMarker(markerInfo.newHamCollege),
@@ -187,6 +188,11 @@ class _MapScreenState extends State<MapScreen> {
           //},
           initialCameraPosition: _initalCameraPosition,
         ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.help),
+          onPressed: () {},
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,
       );
     }
     //Refuses access if 10 Digit key is not provided
