@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import './variables.dart' as variables;
-import './instruction_page.dart' as instructions;
+import './video_instructions.dart' as vid;
 import './map.dart' as map;
 
 class LoginPage extends StatefulWidget {
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const map.MapScreen()));
+                                builder: (context) =>  vid.VideoInstructions()));
                       },
                       child: const Text('Enter')),
                 ])),
@@ -101,13 +101,13 @@ class _LoginPageState extends State<LoginPage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       label: Text('Enter'),
       onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const map.MapScreen()));
-/*
+       // Navigator.push(context,
+         //   MaterialPageRoute(builder: (context) => const map.MapScreen()));
+
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const instructions.Instructions()));
-                */
+                builder: (context) =>  vid.VideoInstructions()));
+                
       });
 }
