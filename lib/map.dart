@@ -14,6 +14,7 @@ import './variables.dart' as variables;
 import './methods.dart' as methods;
 import './mapvariables.dart' as mapVar;
 import './marker_information.dart' as markerInfo;
+import './video_instructions.dart' as vidInstructions;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -31,6 +32,8 @@ class _MapScreenState extends State<MapScreen> {
   var location = new Location();
   late BitmapDescriptor marker_notCmplt;
   late BitmapDescriptor marker_cmplt;
+  late BitmapDescriptor marker_food;
+
   Set<Marker>? _markers = <Marker>{};
   var ClueLocations = <markerInfo.ClueLocation>{};
 
@@ -45,6 +48,9 @@ class _MapScreenState extends State<MapScreen> {
 
     marker_cmplt = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(size: Size(50, 50)), 'assets/Cmplt.png');
+
+    marker_food = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(50, 50)), 'assets/FoodIcon.png');
   }
 
   checkpermission_location() async {
@@ -94,6 +100,10 @@ class _MapScreenState extends State<MapScreen> {
     localMarkers.add(makeMarker(markerInfo.trinityStreet, marker_notCmplt));
     localMarkers
         .add(makeMarker(markerInfo.viewOfTheBridgeOfSighs, marker_notCmplt));
+    localMarkers.add(Marker(
+        markerId: MarkerId("Food Sample"),
+        icon: marker_food,
+        position: LatLng(52.203972, 0.118062)));
 
     if (mounted) {
       for (markerInfo.ClueLocation marker in ClueLocations) {
@@ -133,9 +143,10 @@ class _MapScreenState extends State<MapScreen> {
 
   Marker makeMarker(markerInfo.ClueLocation marker, icon) {
     ClueLocations.add(marker);
+    int x = 0;
     for (markerInfo.ClueLocation marker in ClueLocations) {
-      var title = marker.title;
-      log("List: $title");
+      x++;
+      log("Count: $x");
     }
     return (Marker(
         markerId: MarkerId(marker.title),
@@ -190,7 +201,12 @@ class _MapScreenState extends State<MapScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.help),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => vidInstructions.VideoInstructions()));
+          },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,
       );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './login.dart' as login;
+import './video_instructions.dart' as vid;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _HomeState extends State<Home> {
         ),
         child: GestureDetector(onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const login.LoginPage()));
+              MaterialPageRoute(builder: (context) => vid.VideoInstructions()));
         }),
       ),
     );

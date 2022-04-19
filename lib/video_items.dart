@@ -17,32 +17,35 @@ class VideoItem extends StatefulWidget {
 }
 
 class _VideoItemState extends State<VideoItem> {
- late ChewieController _chewieController;
+  late ChewieController _chewieController;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _chewieController = ChewieController(videoPlayerController: widget.videoPlayerController,
-     aspectRatio: 16/9,
-      autoInitialize: true,
-      looping: widget.looping,
-      errorBuilder: (context, errorMessage){
-        return Center(
-          child: Text(errorMessage, style: TextStyle(color: Colors.white))
-        );
-      });
+    _chewieController = ChewieController(
+        videoPlayerController: widget.videoPlayerController,
+        showControls: true,
+        showOptions: true,
+        aspectRatio: 9 / 18,
+        autoInitialize: true,
+        looping: widget.looping,
+        errorBuilder: (context, errorMessage) {
+          return Center(
+              child: Text(errorMessage, style: TextStyle(color: Colors.white)));
+        });
   }
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0.0),
       child: Chewie(
         controller: _chewieController,
-        ),
-      );
+      ),
+    );
   }
 
-  void dispose(){
+  void dispose() {
     super.dispose();
     widget.videoPlayerController.dispose();
     _chewieController.dispose();

@@ -2,11 +2,13 @@ library my_prj.globals;
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import './map.dart' as mp;
 import './variables.dart' as variables;
 import './marker_information.dart' as markerInfo;
+import './video_items.dart' as vid;
 
 //Marker Locations
 
@@ -33,7 +35,12 @@ showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
     title: Text(marker.title),
-    content: Text(marker.body),
+    content: Column(children: <Widget>[
+      Text(marker.body),
+      vid.VideoItem(
+          videoPlayerController: VideoPlayerController.asset("assets/DDO.mp4"),
+          looping: false)
+    ]),
     actions: [
       okButton,
     ],
