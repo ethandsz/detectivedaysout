@@ -37,9 +37,9 @@ showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
     title: Text(marker.title),
     content: Column(children: <Widget>[
       Text(marker.body),
-      vid.VideoItem(
-          videoPlayerController: VideoPlayerController.asset("assets/DDO.mp4"),
-          looping: false)
+      //vid.VideoItem(
+      //    videoPlayerController: VideoPlayerController.asset("assets/DDO.mp4"),
+      // looping: false)
     ]),
     actions: [
       okButton,
