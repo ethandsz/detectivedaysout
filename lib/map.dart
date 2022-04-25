@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:location/location.dart';
+
 import 'dart:math' as math;
 
 import './main.dart' as main;
@@ -15,6 +16,7 @@ import './methods.dart' as methods;
 import './mapvariables.dart' as mapVar;
 import './marker_information.dart' as markerInfo;
 import './video_instructions.dart' as vidInstructions;
+import './home.dart' as home;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -35,6 +37,7 @@ class _MapScreenState extends State<MapScreen> {
   late BitmapDescriptor marker_food;
 
   Set<Marker>? _markers = <Marker>{};
+
   var ClueLocations = <markerInfo.ClueLocation>{};
 
   @override
@@ -68,6 +71,7 @@ class _MapScreenState extends State<MapScreen> {
       print('de');
       await Permission.location.request();
       checkLocation();
+      //Add if statement for final page
     }
   }
 
@@ -106,11 +110,19 @@ class _MapScreenState extends State<MapScreen> {
         position: LatLng(52.203972, 0.118062)));
 
     if (mounted) {
+      var location_counter = 0;
       for (markerInfo.ClueLocation marker in ClueLocations) {
         if (marker.compl) {
+          location_counter = location_counter + 1;
           localMarkers
               .removeWhere((element) => element.markerId == marker.title);
           localMarkers.add(makeMarker(marker, marker_cmplt));
+          if (location_counter == 2) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => home.Home())); //Create new page here
+          }
         }
       }
       setState(() {
