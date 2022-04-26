@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:detectivedaysout/globalVariable.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -17,6 +18,7 @@ import './mapvariables.dart' as mapVar;
 import './marker_information.dart' as markerInfo;
 import './video_instructions.dart' as vidInstructions;
 import './home.dart' as home;
+import './quiz.dart' as quiz;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -111,17 +113,18 @@ class _MapScreenState extends State<MapScreen> {
 
     if (mounted) {
       var location_counter = 0;
+      bool quizDone = false;
       for (markerInfo.ClueLocation marker in ClueLocations) {
         if (marker.compl) {
           location_counter = location_counter + 1;
           localMarkers
               .removeWhere((element) => element.markerId == marker.title);
           localMarkers.add(makeMarker(marker, marker_cmplt));
-          if (location_counter == 2) {
+          if (location_counter == 2 && closeQuiz == false) {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => home.Home())); //Create new page here
+                context, MaterialPageRoute(builder: (context) => quiz.Quiz()));
+            //Create new page here
+            break;
           }
         }
       }

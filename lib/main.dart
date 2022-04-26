@@ -7,6 +7,7 @@ import './variables.dart' as variables;
 import './methods.dart' as methods;
 import './login.dart' as login;
 import './instruction_page.dart';
+import './quiz.dart' as quiz;
 
 BitmapDescriptor? customicon;
 
