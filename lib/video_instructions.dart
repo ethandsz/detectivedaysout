@@ -11,7 +11,7 @@ class VideoInstructions extends StatelessWidget {
       body: ListView(children: <Widget>[
         vid.VideoItem(
             videoPlayerController:
-                VideoPlayerController.asset("assets/DDO.mp4"),
+                VideoPlayerController.asset("assets/INTRO..mp4"),
             looping: false)
       ]),
       floatingActionButton: FloatingActionButton(

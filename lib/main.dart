@@ -43,7 +43,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       customicon = onValue;
     });
     return Scaffold(
-      body: home.Home(),
+      body: quiz.Quiz(),
     );
   }
 }

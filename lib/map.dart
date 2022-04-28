@@ -106,6 +106,7 @@ class _MapScreenState extends State<MapScreen> {
     localMarkers.add(makeMarker(markerInfo.trinityStreet, marker_notCmplt));
     localMarkers
         .add(makeMarker(markerInfo.viewOfTheBridgeOfSighs, marker_notCmplt));
+
     localMarkers.add(Marker(
         markerId: MarkerId("Food Sample"),
         icon: marker_food,

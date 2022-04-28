@@ -3,6 +3,8 @@
 import 'package:detectivedaysout/globalVariable.dart';
 import 'package:flutter/material.dart';
 import './map.dart' as map;
+import 'package:video_player/video_player.dart';
+import './video_items.dart' as vid;
 
 class Quiz extends StatefulWidget {
   const Quiz({Key? key}) : super(key: key);
@@ -33,22 +35,26 @@ class _QuizState extends State<Quiz> {
                 ),
                 Expanded(
                     child: FlatButton(
-                  color: Colors.grey,
-                  onPressed: () {
-                    showAlertDialogTrue(context);
-                  },
-                  child: Text('True',
-                      style: TextStyle(color: Colors.white, fontSize: 20.0)),
-                )),
+                        color: Colors.grey,
+                        child: Text('True',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 20.0)),
+                        onPressed: () {
+                          ListView(children: <Widget>[
+                            vid.VideoItem(
+                                videoPlayerController:
+                                    VideoPlayerController.asset(
+                                        "assets/INTRO..mp4"),
+                                looping: false)
+                          ]);
+                        })),
                 SizedBox(
                   height: 15.0,
                 ),
                 Expanded(
                     child: FlatButton(
                   color: Colors.grey,
-                  onPressed: () {
-                    showAlertDialogFalse(context);
-                  },
+                  onPressed: () {},
                   child: Text('False',
                       style: TextStyle(color: Colors.white, fontSize: 20.0)),
                 )),
@@ -58,9 +64,7 @@ class _QuizState extends State<Quiz> {
                 Expanded(
                     child: FlatButton(
                   color: Colors.grey,
-                  onPressed: () {
-                    showAlertDialogFalse(context);
-                  },
+                  onPressed: () {},
                   child: Text('False',
                       style: TextStyle(color: Colors.white, fontSize: 20.0)),
                 )),
@@ -72,59 +76,13 @@ class _QuizState extends State<Quiz> {
     );
   }
 
-  showAlertDialogFalse(BuildContext context) {
-    // set up the button
-    Widget okButton = TextButton(
-      child: Text("OK"),
-      onPressed: () {},
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Answer Wrong"),
-      content: Text("You answer is wrong, try again!"),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  showAlertDialogTrue(BuildContext context) {
-    // set up the button
-    Widget okButton = TextButton(
-      child: Text("OK"),
-      onPressed: () {
-        setState(() {
-          closeQuiz = true;
-        });
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => map.MapScreen()));
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Answer Correct!"),
-      content: Text("You resolved the mistery, Congratulations!"),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
+  @override
+  Widget videoFirst(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.black,
+        body: vid.VideoItem(
+            videoPlayerController:
+                VideoPlayerController.asset("assets/JEREMIA_FINALE.mp4"),
+            looping: false));
   }
 }

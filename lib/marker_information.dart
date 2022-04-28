@@ -79,3 +79,60 @@ var viewOfTheBridgeOfSighs = ClueLocation(
     body:
         '''Awful tragedy on the river Cam on a sunny afternoon in June 1977 killing two. A 26yo Archaeological Museum’s receptionist Rani Mukerji drowned in a boating accident. Nobody knows exactly how it happened. Her body was found in the water floating down the river, as her clothes were caught by the oar’s holder, the boat turned upside down was floating nearby. Most probably the boat hit an underwater stone, the woman fell down, turned the boat over, hit her head and drowned. The witnesses spotted the boat and the young woman’s body only by the Bridge of Sighs. It’s known that she was making a river cruise together with the 11yo son of her fiancée. The boy’s body was never found.  
 ''');
+var baronBeegPub = ClueLocation(
+    lat: 52.20909559159652,
+    long: 0.11807052630732515,
+    title: 'Baron Beef Pub',
+    body:
+        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/baron-of-beef/.
+    ''');
+
+var eaglePub = ClueLocation(
+    lat: 52.20410928337526,
+    long: 0.11818312913184223,
+    title: 'The Eagle',
+    body:
+        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/eagle/
+    ''');
+
+var bathHouse = ClueLocation(
+    lat: 52.204205458267595,
+    long: 0.11849198495367987,
+    title: 'The Bath House',
+    body:
+        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/bath-house/
+    ''');
+
+var princeRegent = ClueLocation(
+    lat: 52.200084643714376,
+    long: 0.12698077146044784,
+    title: 'The Prince Regent',
+    body:
+        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/prince-regent/
+
+    ''');
+
+var fortGeorge = ClueLocation(
+    lat: 52.21259788432059,
+    long: 0.12777795611823078,
+    title: 'The Fort St George',
+    body:
+        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/fort-st-george/
+    ''');
+var grainHope = ClueLocation(
+    lat: 52.20076584464141,
+    long: 0.12624835426843833,
+    title: 'The Grain and Hop',
+    body:
+        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/grain-hop-store/
+    ''');
+
+var pickerellIn = ClueLocation(
+    lat: 52.21003271721985,
+    long: 0.11615665426869803,
+    title: 'The Pickerel Inn',
+    body:
+        '''
+          https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/pickerel-inn/
+
+    ''');
