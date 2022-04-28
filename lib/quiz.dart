@@ -29,8 +29,8 @@ class _QuizState extends State<Quiz> {
                 Expanded(
                   flex: 5,
                   child: Center(
-                      child:
-                          Text('QUESTIONS', style: TextStyle(fontSize: 25.0))),
+                      child: Text('Who is the murderer',
+                          style: TextStyle(fontSize: 25.0))),
                 ),
                 Expanded(
                     child: FlatButton(
@@ -38,7 +38,7 @@ class _QuizState extends State<Quiz> {
                   onPressed: () {
                     showAlertDialogTrue(context);
                   },
-                  child: Text('True',
+                  child: Text('Grace Martin',
                       style: TextStyle(color: Colors.white, fontSize: 20.0)),
                 )),
                 SizedBox(
@@ -48,9 +48,9 @@ class _QuizState extends State<Quiz> {
                     child: FlatButton(
                   color: Colors.grey,
                   onPressed: () {
-                    showAlertDialogFalse(context);
+                    showAlertDialogGerald(context);
                   },
-                  child: Text('False',
+                  child: Text('Gerald Martin',
                       style: TextStyle(color: Colors.white, fontSize: 20.0)),
                 )),
                 SizedBox(
@@ -60,9 +60,9 @@ class _QuizState extends State<Quiz> {
                     child: FlatButton(
                   color: Colors.grey,
                   onPressed: () {
-                    showAlertDialogFalse(context);
+                    showAlertDialogJeremiah(context);
                   },
-                  child: Text('False',
+                  child: Text('Jeremiah Jones',
                       style: TextStyle(color: Colors.white, fontSize: 20.0)),
                 )),
               ],
@@ -73,7 +73,7 @@ class _QuizState extends State<Quiz> {
     );
   }
 
-  showAlertDialogFalse(BuildContext context) {
+  showAlertDialogJeremiah(BuildContext context) {
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
@@ -84,7 +84,43 @@ class _QuizState extends State<Quiz> {
     AlertDialog alert = AlertDialog(
       scrollable: true,
       title: Text("Answer Wrong"),
-      content: Text("You answer is wrong, try again!"),
+      content: Column(children: <Widget>[
+        vid.VideoItem(
+            videoPlayerController:
+                VideoPlayerController.asset("assets/JEREMIAH_FINALE.mp4"),
+            looping: false)
+      ]),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showAlertDialogGerald(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {},
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      scrollable: true,
+      title: Text("Answer Wrong"),
+      content: Column(children: <Widget>[
+        vid.VideoItem(
+            videoPlayerController:
+                VideoPlayerController.asset("assets/GERALD_FINALE.mp4"),
+            looping: false)
+      ]),
       actions: [
         okButton,
       ],
@@ -104,6 +140,7 @@ class _QuizState extends State<Quiz> {
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
+        Navigator.of(context).pop();
         setState(() {
           closeQuiz = true;
         });
@@ -119,7 +156,7 @@ class _QuizState extends State<Quiz> {
       content: Column(children: <Widget>[
         vid.VideoItem(
             videoPlayerController:
-                VideoPlayerController.asset("assets/INTRO..mp4"),
+                VideoPlayerController.asset("assets/GRACE_FINALE.mp4"),
             looping: false)
       ]),
       actions: [
