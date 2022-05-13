@@ -3,12 +3,14 @@ class ClueLocation {
       {required this.lat,
       required this.long,
       required this.title,
+      this.videoLink,
       required this.body});
   double lat;
   double long;
   var title;
   var body;
-  bool compl = false;
+  var videoLink;
+  bool compl = true;
 }
 
 var newHamCollege = ClueLocation(
@@ -84,23 +86,21 @@ var baronBeegPub = ClueLocation(
     long: 0.11807052630732515,
     title: 'Baron Beef Pub',
     body:
-        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/baron-of-beef/.
+        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/baron-of-beef/
     ''');
 
 var eaglePub = ClueLocation(
     lat: 52.20410928337526,
     long: 0.11818312913184223,
     title: 'The Eagle',
-    body:
-        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/eagle/
+    body: '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/eagle/
     ''');
 
 var bathHouse = ClueLocation(
     lat: 52.204205458267595,
     long: 0.11849198495367987,
     title: 'The Bath House',
-    body:
-        '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/bath-house/
+    body: '''https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/bath-house/
     ''');
 
 var princeRegent = ClueLocation(
@@ -131,8 +131,7 @@ var pickerellIn = ClueLocation(
     lat: 52.21003271721985,
     long: 0.11615665426869803,
     title: 'The Pickerel Inn',
-    body:
-        '''
+    body: '''
           https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/pickerel-inn/
 
     ''');

@@ -10,8 +10,8 @@ class VideoInstructions extends StatelessWidget {
       backgroundColor: Colors.black,
       body: ListView(children: <Widget>[
         vid.VideoItem(
-            videoPlayerController:
-                VideoPlayerController.asset("assets/INTRO..mp4"),
+            videoPlayerController: VideoPlayerController.network(
+                "https://storage.googleapis.com/video-files-ddo/INTRO.mp4"),
             looping: false)
       ]),
       floatingActionButton: FloatingActionButton(

@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:location/location.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'dart:math' as math;
 
@@ -37,6 +38,7 @@ class _MapScreenState extends State<MapScreen> {
   late BitmapDescriptor marker_notCmplt;
   late BitmapDescriptor marker_cmplt;
   late BitmapDescriptor marker_food;
+  late BitmapDescriptor marker_tour;
 
   Set<Marker>? _markers = <Marker>{};
 
@@ -56,6 +58,9 @@ class _MapScreenState extends State<MapScreen> {
 
     marker_food = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(size: Size(50, 50)), 'assets/FoodIcon.png');
+
+    marker_tour = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(50, 50)), 'assets/Tour.png');
   }
 
   checkpermission_location() async {
@@ -74,6 +79,14 @@ class _MapScreenState extends State<MapScreen> {
       await Permission.location.request();
       checkLocation();
       //Add if statement for final page
+    }
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -107,10 +120,20 @@ class _MapScreenState extends State<MapScreen> {
     localMarkers
         .add(makeMarker(markerInfo.viewOfTheBridgeOfSighs, marker_notCmplt));
 
+    localMarkers.add(makePubMarker(markerInfo.baronBeegPub, marker_food));
+    localMarkers.add(makePubMarker(markerInfo.eaglePub, marker_food));
+    localMarkers.add(makePubMarker(markerInfo.bathHouse, marker_food));
+    localMarkers.add(makePubMarker(markerInfo.princeRegent, marker_food));
+    localMarkers.add(makePubMarker(markerInfo.fortGeorge, marker_food));
+    localMarkers.add(makePubMarker(markerInfo.grainHope, marker_food));
+    localMarkers.add(makePubMarker(markerInfo.pickerellIn, marker_food));
+
     localMarkers.add(Marker(
-        markerId: MarkerId("Food Sample"),
-        icon: marker_food,
-        position: LatLng(52.203972, 0.118062)));
+      markerId: MarkerId("Tour"),
+      infoWindow: InfoWindow(title: "Tour Start"),
+      position: LatLng(52.202954, 0.121188),
+      icon: marker_tour,
+    ));
 
     if (mounted) {
       var location_counter = 0;
@@ -174,6 +197,19 @@ class _MapScreenState extends State<MapScreen> {
             mapVar.showAlertDialog(context, marker);
           }
         }));
+  }
+
+  Marker makePubMarker(markerInfo.ClueLocation marker, icon) {
+    return (Marker(
+        markerId: MarkerId(marker.title),
+        infoWindow: InfoWindow(
+            title: marker.title,
+            onTap: () {
+              var url = marker.body;
+              launchURL(url);
+            }),
+        icon: marker_food,
+        position: LatLng(marker.lat, marker.long)));
   }
 
   //Google map widget

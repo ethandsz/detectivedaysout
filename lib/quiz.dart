@@ -75,19 +75,50 @@ class _QuizState extends State<Quiz> {
 
   showAlertDialogFalse(BuildContext context) {
     // set up the button
-    Widget okButton = TextButton(
-      child: Text("OK"),
-      onPressed: () {},
-    );
+    Widget okButton = ButtonTheme(
+        child: Align(
+            alignment: Alignment.center,
+            child: TextButton(
+              child: Text("Ok"),
+              style: TextButton.styleFrom(
+                  primary: Colors.black,
+                  backgroundColor: Colors.white,
+                  textStyle: const TextStyle(
+                      fontFamily: 'Akrobat',
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )));
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      scrollable: true,
-      title: Text("Answer Wrong"),
-      content: Text("You answer is wrong, try again!"),
+      title: Text("Wrong Answer"),
+      content: Column(children: <Widget>[
+        Text("False"),
+        vid.VideoItem(
+            videoPlayerController:
+                VideoPlayerController.asset("assets/GERALD_FINALE.mp4"),
+            looping: false)
+      ]),
       actions: [
         okButton,
       ],
+      scrollable: true,
+      backgroundColor: Colors.white,
+      contentTextStyle: TextStyle(
+          fontFamily: 'Akrobat',
+          fontSize: 18,
+          color: Colors.black,
+          fontWeight: FontWeight.bold),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      titleTextStyle: TextStyle(
+          fontSize: 18,
+          color: Colors.black,
+          fontWeight: FontWeight.w900,
+          fontFamily: 'Akrobat'),
     );
 
     // show the dialog
@@ -101,22 +132,34 @@ class _QuizState extends State<Quiz> {
 
   showAlertDialogTrue(BuildContext context) {
     // set up the button
-    Widget okButton = TextButton(
-      child: Text("OK"),
-      onPressed: () {
-        setState(() {
-          closeQuiz = true;
-        });
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => map.MapScreen()));
-      },
-    );
+    Widget okButton = ButtonTheme(
+        child: Align(
+            alignment: Alignment.center,
+            child: TextButton(
+              child: Text("Ok"),
+              style: TextButton.styleFrom(
+                  primary: Colors.black,
+                  backgroundColor: Colors.white,
+                  textStyle: const TextStyle(
+                      fontFamily: 'Akrobat',
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {
+                  closeQuiz = true;
+                });
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => map.MapScreen()));
+              },
+            )));
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Answer Correct!"),
-      scrollable: true,
+      title: Text("True"),
       content: Column(children: <Widget>[
+        Text("Correct"),
         vid.VideoItem(
             videoPlayerController:
                 VideoPlayerController.asset("assets/INTRO..mp4"),
@@ -125,6 +168,19 @@ class _QuizState extends State<Quiz> {
       actions: [
         okButton,
       ],
+      scrollable: true,
+      backgroundColor: Colors.white,
+      contentTextStyle: TextStyle(
+          fontFamily: 'Akrobat',
+          fontSize: 18,
+          color: Colors.black,
+          fontWeight: FontWeight.bold),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      titleTextStyle: TextStyle(
+          fontSize: 18,
+          color: Colors.black,
+          fontWeight: FontWeight.w900,
+          fontFamily: 'Akrobat'),
     );
 
     // show the dialog

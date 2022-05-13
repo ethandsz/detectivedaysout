@@ -37,9 +37,11 @@ showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
     title: Text(marker.title),
     content: Column(children: <Widget>[
       Text(marker.body),
-      //vid.VideoItem(
-      //    videoPlayerController: VideoPlayerController.asset("assets/DDO.mp4"),
-      // looping: false)
+      if (marker.videoLink != null)
+        vid.VideoItem(
+            videoPlayerController: VideoPlayerController.network(
+                "https://storage.googleapis.com/video-files-ddo/INTRO.mp4"),
+            looping: false)
     ]),
     actions: [
       okButton,
