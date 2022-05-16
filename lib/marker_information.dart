@@ -10,7 +10,7 @@ class ClueLocation {
   var title;
   var body;
   var videoLink;
-  bool compl = false;
+  bool compl = true;
 }
 
 var courtyardMuseum = ClueLocation(
