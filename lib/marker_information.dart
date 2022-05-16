@@ -132,6 +132,6 @@ var pickerellIn = ClueLocation(
     long: 0.11615665426869803,
     title: 'The Pickerel Inn',
     body: '''
-          https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/pickerel-inn/
+          https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/pickerel-inn
 
     ''');
