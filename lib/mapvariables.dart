@@ -1,6 +1,7 @@
 library my_prj.globals;
 
 import 'dart:developer';
+import 'package:detectivedaysout/globalVariable.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -28,6 +29,8 @@ showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
                     color: Colors.black,
                     fontWeight: FontWeight.bold)),
             onPressed: () {
+              marker.compl = true;
+              updateMarker = true;
               Navigator.of(context).pop();
             },
           )));
@@ -36,11 +39,11 @@ showAlertDialog(BuildContext context, markerInfo.ClueLocation marker) {
   AlertDialog alert = AlertDialog(
     title: Text(marker.title),
     content: Column(children: <Widget>[
-      Text(marker.body),
+      if (marker.body != null) Text(marker.body),
       if (marker.videoLink != null)
         vid.VideoItem(
-            videoPlayerController: VideoPlayerController.network(
-                "https://storage.googleapis.com/video-files-ddo/INTRO.mp4"),
+            videoPlayerController:
+                VideoPlayerController.network(marker.videoLink),
             looping: false)
     ]),
     actions: [

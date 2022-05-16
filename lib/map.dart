@@ -92,33 +92,36 @@ class _MapScreenState extends State<MapScreen> {
 
   void checkClue(var x, var y, markerInfo.ClueLocation marker) {
     double distance = methods.distance(marker.lat, marker.long, x, y);
-    //log("distance: $distance");
+    if (updateMarker) {
+      generateMarkers();
+    }
     if ((distance < dcheck)) {
       variables.dialogVis = true;
       if ((variables.dialogVis) && (marker.compl == false)) {
         mapVar.showAlertDialog(context, marker);
         variables.dialogVis = false;
-        marker.compl = true;
-        generateMarkers();
+        //marker.compl = true;
+        //generateMarkers();
       }
     }
   }
 
   void generateMarkers() {
     var localMarkers = <Marker>{};
-    localMarkers.add(makeMarker(markerInfo.newHamCollege, marker_notCmplt));
-    localMarkers.add(makeMarker(markerInfo.coeFen, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.courtyardMuseum, marker_tour));
+    localMarkers.add(makeMarker(markerInfo.shrewHouse, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.hangedManShop, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.fitzBillies, marker_notCmplt));
     localMarkers
-        .add(makeMarker(markerInfo.mathematicalBridge, marker_notCmplt));
-    localMarkers.add(makeMarker(markerInfo.graveYard, marker_notCmplt));
-    localMarkers
-        .add(makeMarker(markerInfo.archeologicalMuseum, marker_notCmplt));
-    localMarkers
-        .add(makeMarker(markerInfo.addenbrokesHospital, marker_notCmplt));
-    localMarkers.add(makeMarker(markerInfo.stMarysBellTower, marker_notCmplt));
-    localMarkers.add(makeMarker(markerInfo.trinityStreet, marker_notCmplt));
-    localMarkers
-        .add(makeMarker(markerInfo.viewOfTheBridgeOfSighs, marker_notCmplt));
+        .add(makeMarker(markerInfo.stephenHokingHouse, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.sittingBridge, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.queensLane, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.privateSide, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.eaglesBeerGarden, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.zizzi, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.michaelHouse, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.trinityLane, marker_notCmplt));
+    localMarkers.add(makeMarker(markerInfo.endTour, marker_tour));
 
     localMarkers.add(makePubMarker(markerInfo.baronBeegPub, marker_food));
     localMarkers.add(makePubMarker(markerInfo.eaglePub, marker_food));
@@ -128,23 +131,18 @@ class _MapScreenState extends State<MapScreen> {
     localMarkers.add(makePubMarker(markerInfo.grainHope, marker_food));
     localMarkers.add(makePubMarker(markerInfo.pickerellIn, marker_food));
 
-    localMarkers.add(Marker(
-      markerId: MarkerId("Tour"),
-      infoWindow: InfoWindow(title: "Tour Start"),
-      position: LatLng(52.202954, 0.121188),
-      icon: marker_tour,
-    ));
-
     if (mounted) {
       var location_counter = 0;
       bool quizDone = false;
       for (markerInfo.ClueLocation marker in ClueLocations) {
+        log("InCompl");
         if (marker.compl) {
           location_counter = location_counter + 1;
           localMarkers
               .removeWhere((element) => element.markerId == marker.title);
           localMarkers.add(makeMarker(marker, marker_cmplt));
-          if (location_counter == 2 && closeQuiz == false) {
+          log("Locations Completed = $location_counter");
+          if (location_counter == ClueLocations.length && closeQuiz == false) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => quiz.Quiz()));
             //Create new page here
@@ -156,21 +154,26 @@ class _MapScreenState extends State<MapScreen> {
         _markers = localMarkers;
       });
     }
+    updateMarker = false;
   }
 
   void checkLocation() {
     location.onLocationChanged.listen((LocationData currentLocation) {
       var lat = currentLocation.latitude;
       var long = currentLocation.longitude;
-      checkClue(lat, long, markerInfo.newHamCollege);
-      checkClue(lat, long, markerInfo.coeFen);
-      checkClue(lat, long, markerInfo.mathematicalBridge);
-      checkClue(lat, long, markerInfo.graveYard);
-      checkClue(lat, long, markerInfo.archeologicalMuseum);
-      checkClue(lat, long, markerInfo.addenbrokesHospital);
-      checkClue(lat, long, markerInfo.stMarysBellTower);
-      checkClue(lat, long, markerInfo.trinityStreet);
-      checkClue(lat, long, markerInfo.viewOfTheBridgeOfSighs);
+      checkClue(lat, long, markerInfo.courtyardMuseum);
+      checkClue(lat, long, markerInfo.shrewHouse);
+      checkClue(lat, long, markerInfo.hangedManShop);
+      checkClue(lat, long, markerInfo.fitzBillies);
+      checkClue(lat, long, markerInfo.stephenHokingHouse);
+      checkClue(lat, long, markerInfo.sittingBridge);
+      checkClue(lat, long, markerInfo.queensLane);
+      checkClue(lat, long, markerInfo.privateSide);
+      checkClue(lat, long, markerInfo.eaglesBeerGarden);
+      checkClue(lat, long, markerInfo.zizzi);
+      checkClue(lat, long, markerInfo.michaelHouse);
+      checkClue(lat, long, markerInfo.trinityLane);
+      checkClue(lat, long, markerInfo.endTour);
     });
   }
 
@@ -182,11 +185,8 @@ class _MapScreenState extends State<MapScreen> {
 
   Marker makeMarker(markerInfo.ClueLocation marker, icon) {
     ClueLocations.add(marker);
-    int x = 0;
-    for (markerInfo.ClueLocation marker in ClueLocations) {
-      x++;
-      log("Count: $x");
-    }
+    var len = ClueLocations.length;
+    log("Length = $len");
     return (Marker(
         markerId: MarkerId(marker.title),
         infoWindow: InfoWindow(title: marker.title),
@@ -196,6 +196,7 @@ class _MapScreenState extends State<MapScreen> {
           if (marker.compl) {
             mapVar.showAlertDialog(context, marker);
           }
+          marker.compl = true;
         }));
   }
 
