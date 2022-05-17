@@ -10,7 +10,7 @@ class ClueLocation {
   var title;
   var body;
   var videoLink;
-  bool compl = true;
+  bool compl = false;
 }
 
 var courtyardMuseum = ClueLocation(
@@ -52,7 +52,7 @@ var stephenHokingHouse = ClueLocation(
 var sittingBridge = ClueLocation(
     lat: 52.201430,
     long: 0.115847,
-    title: 'itting bridge at Scudamore’s Mill Lane Punting Station',
+    title: 'Sitting bridge at Scudamore’s Mill Lane Punting Station',
     videoLink:
         'https://storage.googleapis.com/video-files-ddo/VIDEO%206_RIVER%20CAM.mp4');
 
@@ -158,6 +158,5 @@ var pickerellIn = ClueLocation(
     long: 0.11615665426869803,
     title: 'The Pickerel Inn',
     body: '''
-          https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/pickerel-inn
-
+          https://www.greeneking-pubs.co.uk/pubs/cambridgeshire/grain-hop-store/
     ''');

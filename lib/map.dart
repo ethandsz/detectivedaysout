@@ -196,7 +196,7 @@ class _MapScreenState extends State<MapScreen> {
           if (marker.compl) {
             mapVar.showAlertDialog(context, marker);
           }
-          marker.compl = true;
+          //marker.compl = true;
         }));
   }
 
