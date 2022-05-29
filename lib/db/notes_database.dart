@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:async';
+import 'dart:core';
 
 import 'package:detectivedaysout/model/note.dart';
 import 'package:path/path.dart';
@@ -61,6 +62,13 @@ CREATE TABLE $tableNotes(
     } else {
       throw Exception('ID $id not found');
     }
+  }
+
+  Future<List<Note>> readAllNotes() async {
+    final db = await instance.database;
+
+    final result = await db.rawQuery('SELECT * FROM $tableNotes');
+    return result.map((json) => Note.fromJson(json)).toList();
   }
 
   Future close() async {
